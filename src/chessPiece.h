@@ -1,11 +1,12 @@
+#ifndef CHESSPIECE_H
+#define CHESSPIECE_H
+
 #include <string>
 #include <iostream>
 
 using namespace std;
 
-
-class chessPiece
-{
+class chessPiece {
 private:
     string colorType;
 
@@ -14,86 +15,109 @@ protected:
     int y;
 
 public:
+    chessPiece(const string& color, int startX, int startY)
+        : colorType(color), x(startX), y(startY) {}
 
-    string getColorType()
-    {
+    virtual ~chessPiece() {}
+
+    string getColorType() const {
         return colorType;
     }
-    string setColorType(const string color)
-    {
+
+    void setColorType(const string& color) {
         colorType = color;
     }
 
-    void getPos(int &outX, int &outY)
-    {
+    void getPos(int& outX, int& outY) const {
         outX = x;
         outY = y;
     }
 
-    chessPiece(/* args */);
-    ~chessPiece();
+    virtual void move(int newX, int newY) = 0;  // Pure virtual function for movement
 };
 
-chessPiece::chessPiece(/* args */)
-{
-}
+class pawn : public chessPiece {
+public:
+    pawn(const string& color, int startX, int startY)
+        : chessPiece(color, startX, startY) {}
 
-chessPiece::~chessPiece()
-{
-}
+    ~pawn() override {}
 
-
-class pawn : public chessPiece
-{
-    public:
-    pawn(const std::string& color, int startX, int startY);
-    ~pawn();
-
-    void moveUp();
-    void moveDown();
+    void move(int newX, int newY) override {
+        // Implement pawn-specific movement logic
+        x = newX;
+        y = newY;
+    }
 };
 
-class king : public chessPiece
-{
-    public:
-    king(const std::string& color, int startX, int startY);
-    ~king();
+class king : public chessPiece {
+public:
+    king(const string& color, int startX, int startY)
+        : chessPiece(color, startX, startY) {}
 
-    void moveKing();
+    ~king() override {}
+
+    void move(int newX, int newY) override {
+        // Implement king-specific movement logic
+        x = newX;
+        y = newY;
+    }
 };
 
-class queen : public chessPiece
-{
-    public:
-    queen(const std::string& color, int startX, int startY);
-    ~queen();
+class queen : public chessPiece {
+public:
+    queen(const string& color, int startX, int startY)
+        : chessPiece(color, startX, startY) {}
 
-    void moveQueen();
+    ~queen() override {}
+
+    void move(int newX, int newY) override {
+        // Implement queen-specific movement logic
+        x = newX;
+        y = newY;
+    }
 };
 
-class bishop : public chessPiece
-{
-    public:
-    bishop(const std::string& color, int startX, int startY);
-    ~bishop();
+class bishop : public chessPiece {
+public:
+    bishop(const string& color, int startX, int startY)
+        : chessPiece(color, startX, startY) {}
 
-    void moveBishop();
+    ~bishop() override {}
+
+    void move(int newX, int newY) override {
+        // Implement bishop-specific movement logic
+        x = newX;
+        y = newY;
+    }
 };
 
-class knight : public chessPiece
-{
-    public:
-    knight(const std::string& color, int startX, int startY);
-    ~knight();
+class knight : public chessPiece {
+public:
+    knight(const string& color, int startX, int startY)
+        : chessPiece(color, startX, startY) {}
 
-    void moveKnight();
+    ~knight() override {}
+
+    void move(int newX, int newY) override {
+        // Implement knight-specific movement logic
+        x = newX;
+        y = newY;
+    }
 };
 
-class rook : public chessPiece
-{
-    public:
-    rook(const std::string& color, int startX, int startY);
-    ~rook();
+class rook : public chessPiece {
+public:
+    rook(const string& color, int startX, int startY)
+        : chessPiece(color, startX, startY) {}
 
-    void moveRook();
+    ~rook() override {}
+
+    void move(int newX, int newY) override {
+        // Implement rook-specific movement logic
+        x = newX;
+        y = newY;
+    }
 };
+
+#endif // CHESSPIECE_H
