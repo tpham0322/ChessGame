@@ -41,7 +41,9 @@ class king : public chessPiece {
 public:
     king(const string& color, int startX, int startY);
     ~king() override;
+    bool isValidMove(int newX, int newY, const vector<vector<shared_ptr<chessPiece>>>& grid) const override;
     void move(int newX, int newY) override;
+    char getPieceChar() const override;
 };
 
 class queen : public chessPiece {

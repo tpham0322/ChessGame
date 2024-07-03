@@ -16,8 +16,8 @@ void board::initializeBoard() {
         grid[6][i] = make_shared<pawn>("Black", 6, i);
     }
     
-    //grid[0][4] = make_shared<king>("White", 0, 4);
-    //grid[7][5] = make_shared<king>("Black", 7, 5);
+    grid[0][4] = make_shared<king>("White", 0, 4);
+    grid[7][3] = make_shared<king>("Black", 7, 5);
 
     grid[0][3] = make_shared<queen>("White", 0, 3);
     grid[7][4] = make_shared<queen>("Black", 7, 3);

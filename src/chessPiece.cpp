@@ -74,6 +74,15 @@ king::king(const string& color, int startX, int startY)
 
 king::~king() {}
 
+bool king::isValidMove(int newX, int newY, const vector<vector<shared_ptr<chessPiece>>>& grid) const {
+    int dx = abs(newX - x);
+    int dy = abs(newY - y);
+
+    return (dx <= 1 && dy <= 1);
+}
+
+
+
 void king::move(int newX, int newY) {
     // Implement king-specific movement logic
     if (abs(newX - x) <= 1 && abs(newY - y) <= 1) {
@@ -82,6 +91,10 @@ void king::move(int newX, int newY) {
     } else {
         cout << "Invalid move for king" << endl;
     }
+}
+
+char king::getPieceChar() const {
+    return getColorType() == "White" ? 'W' : 'w';
 }
 
 // Implementation for queen
