@@ -25,6 +25,7 @@ public:
     void getPos(int& outX, int& outY) const;
     virtual bool isValidMove(int newX, int newY, const vector<vector<shared_ptr<chessPiece>>>& grid) const = 0;
     virtual void move(int newX, int newY) = 0;  // Pure virtual function for movement
+    virtual char getPieceChar() const = 0;
 };
 
 class pawn : public chessPiece {
@@ -33,6 +34,7 @@ public:
     ~pawn() override;
     bool isValidMove(int newX, int newY, const vector<vector<shared_ptr<chessPiece>>>& grid) const override;
     void move(int newX, int newY) override;
+    char getPieceChar() const override; 
 };
 
 class king : public chessPiece {
@@ -40,13 +42,16 @@ public:
     king(const string& color, int startX, int startY);
     ~king() override;
     void move(int newX, int newY) override;
+    char getPieceChar() const override; 
 };
 
 class queen : public chessPiece {
 public:
     queen(const string& color, int startX, int startY);
     ~queen() override;
+    bool isValidMove(int newX, int newY, const vector<vector<shared_ptr<chessPiece>>>& grid) const override;
     void move(int newX, int newY) override;
+    char getPieceChar() const override; 
 };
 
 class bishop : public chessPiece {

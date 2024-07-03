@@ -26,6 +26,20 @@ pawn::pawn(const string& color, int startX, int startY)
 pawn::~pawn() {}
 
 
+bool pawn::isValidMove(int newX, int newY, const vector<vector<shared_ptr<chessPiece>>>& grid) const {
+    if (getColorType() == "White") {
+        // Move forward one or two squares if initial position
+        if (newY == y && ((newX == x + 1 && !grid[newX][newY]) || (x == 1 && newX == x + 2 && !grid[newX][newY] && !grid[x + 1][newY]))) {
+            return true;
+        }
+    } else if (getColorType() == "Black") {
+        // Move forward one or two squares if initial position
+        if (newY == y && ((newX == x - 1 && !grid[newX][newY]) || (x == 6 && newX == x - 2 && !grid[newX][newY] && !grid[x - 1][newY]))) {
+            return true;
+        }
+    }
+    return false;
+}
 
 void pawn::move(int newX, int newY) {
     if (getColorType() == "white") {
@@ -49,8 +63,10 @@ void pawn::move(int newX, int newY) {
     }
 }
 
-// Implementation for other chess pieces
-// ...
+char pawn::getPieceChar() const {
+    return getColorType() == "White" ? 'P' : 'p';
+}
+
 
 // Implementation for king
 king::king(const string& color, int startX, int startY)
@@ -74,14 +90,36 @@ queen::queen(const string& color, int startX, int startY)
 
 queen::~queen() {}
 
+
+bool queen::isValidMove(int newX, int newY, const vector<vector<shared_ptr<chessPiece>>>& grid) const {
+    int dx = abs(newX - x);
+    int dy = abs(newY - y);
+
+    if ((dx == dy) || (newX == x) || (newY == y)) {
+        // Check if path is clear
+        int xDir = (newX - x) != 0 ? (newX - x) / dx : 0;
+        int yDir = (newY - y) != 0 ? (newY - y) / dy : 0;
+
+        int checkX = x + xDir;
+        int checkY = y + yDir;
+
+        while (checkX != newX || checkY != newY) {
+            if (grid[checkX][checkY]) {
+                return false;
+            }
+            checkX += xDir;
+            checkY += yDir;
+        }
+        return true;
+    }
+    return false;
+}
+
+
 void queen::move(int newX, int newY) {
     // Implement queen-specific movement logic
-    if (abs(newX - x) == abs(newY - y) || newX == x || newY == y) {
-        x = newX;
-        y = newY;
-    } else {
-        cout << "Invalid move for queen" << endl;
-    }
+    x = newX;
+    y = newY;
 }
 
 // Implementation for bishop

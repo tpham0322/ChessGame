@@ -15,7 +15,12 @@ void board::initializeBoard() {
         grid[1][i] = make_shared<pawn>("White", 1, i);
         grid[6][i] = make_shared<pawn>("Black", 6, i);
     }
-    // Initialize other pieces...
+    
+    //grid[0][4] = make_shared<king>("White", 0, 4);
+    //grid[7][5] = make_shared<king>("Black", 7, 5);
+
+    //grid[0][3] = make_shared<queen>("White", 0, 3);
+    //grid[7][3] = make_shared<queen>("Black", 7, 3);
 }
 
 bool board::movePiece(int startX, int startY, int endX, int endY) {
@@ -56,7 +61,7 @@ void board::printBoard() const {
     for (const auto& row : grid) {
         for (const auto& piece : row) {
             if (piece) {
-                cout << piece->getColorType()[0] << " ";
+                cout << piece->getPieceChar() << " ";
             } else {
                 cout << ". ";
             }
