@@ -117,9 +117,13 @@ bool queen::isValidMove(int newX, int newY, const vector<vector<shared_ptr<chess
 
 
 void queen::move(int newX, int newY) {
-    // Implement queen-specific movement logic
+
     x = newX;
     y = newY;
+}
+
+char queen::getPieceChar() const {
+    return getColorType() == "White" ? 'Q' : 'q';
 }
 
 // Implementation for bishop
@@ -144,14 +148,21 @@ knight::knight(const string& color, int startX, int startY)
 
 knight::~knight() {}
 
+bool knight::isValidMove(int newX, int newY, const vector<vector<shared_ptr<chessPiece>>>& grid) const {
+    int dx = abs(newX - x);
+    int dy = abs(newY - y);
+
+    // Knights move in an "L" shape: 2 squares in one direction and 1 in the other
+    return (dx == 2 && dy == 1) || (dx == 1 && dy == 2);
+}
+
 void knight::move(int newX, int newY) {
-    // Implement knight-specific movement logic
-    if ((abs(newX - x) == 2 && abs(newY - y) == 1) || (abs(newX - x) == 1 && abs(newY - y) == 2)) {
-        x = newX;
-        y = newY;
-    } else {
-        cout << "Invalid move for knight" << endl;
-    }
+    x = newX;
+    y = newY;
+}
+
+char knight::getPieceChar() const {
+    return getColorType() == "White" ? 'K' : 'k';
 }
 
 // Implementation for rook
@@ -159,6 +170,28 @@ rook::rook(const string& color, int startX, int startY)
     : chessPiece(color, startX, startY) {}
 
 rook::~rook() {}
+
+bool rook::isValidMove(int newX, int newY, const vector<vector<shared_ptr<chessPiece>>>& grid) const {
+    if(x != newX && y != newY) {
+        return false;
+    }
+
+    int xDir = (newX - x) == 0 ? 0 : (newX - x) / abs(newX - x);
+    int yDir = (newY - y) == 0 ? 0 : (newY - y) / abs(newY - y);
+
+    int checkX = x + xDir;
+    int checkY = y + yDir;
+
+    while (checkX != newX || checkY != newY) {
+        if (grid[checkX][checkY]) {
+            return false;
+        }
+        checkX += xDir;
+        checkY += yDir;
+    }
+    return true;
+
+}
 
 void rook::move(int newX, int newY) {
     // Implement rook-specific movement logic
@@ -168,4 +201,8 @@ void rook::move(int newX, int newY) {
     } else {
         cout << "Invalid move for rook" << endl;
     }
+}
+
+char rook::getPieceChar() const {
+    return getColorType() == "White" ? 'R' : 'r';
 }

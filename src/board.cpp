@@ -19,8 +19,20 @@ void board::initializeBoard() {
     //grid[0][4] = make_shared<king>("White", 0, 4);
     //grid[7][5] = make_shared<king>("Black", 7, 5);
 
-    //grid[0][3] = make_shared<queen>("White", 0, 3);
-    //grid[7][3] = make_shared<queen>("Black", 7, 3);
+    grid[0][3] = make_shared<queen>("White", 0, 3);
+    grid[7][4] = make_shared<queen>("Black", 7, 3);
+
+    grid[0][1] = make_shared<knight>("White", 0, 1);
+    grid[0][6] = make_shared<knight>("White", 0, 6);
+    grid[7][1] = make_shared<knight>("Black", 7, 1);
+    grid[7][6] = make_shared<knight>("Black", 7, 6);
+
+    grid[0][0] = make_shared<rook>("White", 0, 0);
+    grid[0][7] = make_shared<rook>("White", 0, 7);
+    grid[7][0] = make_shared<rook>("Black", 7, 0);
+    grid[7][7] = make_shared<rook>("Black", 7, 7);
+
+
 }
 
 bool board::movePiece(int startX, int startY, int endX, int endY) {

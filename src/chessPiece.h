@@ -42,7 +42,6 @@ public:
     king(const string& color, int startX, int startY);
     ~king() override;
     void move(int newX, int newY) override;
-    char getPieceChar() const override; 
 };
 
 class queen : public chessPiece {
@@ -59,20 +58,25 @@ public:
     bishop(const string& color, int startX, int startY);
     ~bishop() override;
     void move(int newX, int newY) override;
+    //char getPieceChar() const override; 
 };
 
 class knight : public chessPiece {
 public:
     knight(const string& color, int startX, int startY);
     ~knight() override;
+    bool isValidMove(int newX, int newY, const vector<vector<shared_ptr<chessPiece>>>& grid) const override;
     void move(int newX, int newY) override;
+    char getPieceChar() const override;
 };
 
 class rook : public chessPiece {
 public:
     rook(const string& color, int startX, int startY);
     ~rook() override;
+    bool isValidMove(int newX, int newY, const vector<vector<shared_ptr<chessPiece>>>& grid) const override;
     void move(int newX, int newY) override;
+    char getPieceChar() const override;
 };
 
 #endif // CHESSPIECE_H
