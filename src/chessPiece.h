@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+#include <memory>
 
 using namespace std;
 
@@ -21,6 +23,7 @@ public:
     string getColorType() const;
     void setColorType(const string& color);
     void getPos(int& outX, int& outY) const;
+    virtual bool isValidMove(int newX, int newY, const vector<vector<shared_ptr<chessPiece>>>& grid) const = 0;
     virtual void move(int newX, int newY) = 0;  // Pure virtual function for movement
 };
 
@@ -28,6 +31,7 @@ class pawn : public chessPiece {
 public:
     pawn(const string& color, int startX, int startY);
     ~pawn() override;
+    bool isValidMove(int newX, int newY, const vector<vector<shared_ptr<chessPiece>>>& grid) const override;
     void move(int newX, int newY) override;
 };
 

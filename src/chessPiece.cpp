@@ -25,6 +25,8 @@ pawn::pawn(const string& color, int startX, int startY)
 
 pawn::~pawn() {}
 
+
+
 void pawn::move(int newX, int newY) {
     if (getColorType() == "white") {
         if (newY == y && (newX == x + 1 || (x == 1 && newX == x + 2))) {
